@@ -2,23 +2,28 @@ const AtendimentoModel = require("../Models/Atendimentos");
 
 class AtendimentoController {
   index(req, res) {
-    return res
-      .send({
-        name: "Murillo Godoi",
-        curso: "Engenharia de Software",
-        idade: "17",
-      })
-      .status(200);
+    AtendimentoModel.listarAtendimentos(res);
   }
 
   store(req, res) {
     const dadosNovoAtendimento = req.body;
-    AtendimentoModel.adicionaAtendimento(dadosNovoAtendimento);
-    return res
-      .send({
-        message: "Sucess",
-      })
-      .status(200);
+    AtendimentoModel.adicionaAtendimento(res,dadosNovoAtendimento);
+  }
+
+  findOne(req, res) {
+    const { id } = req.params;
+    AtendimentoModel.listarAtendimentoPorId(res, id);
+  }
+
+  updateOne(req, res) {
+    const { id } = req.params;
+    const novosDadosAtendimento = req.body;
+    AtendimentoModel.atualizarAtendimentoPorId(res, id, novosDadosAtendimento);
+  }
+
+  deleteById(req, res) {
+    const { id } = req.params;
+    AtendimentoModel.excluirAtendimentoPorId(res, id);
   }
 }
 
